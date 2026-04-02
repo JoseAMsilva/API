@@ -15,13 +15,15 @@ export default async (req, res, next) => {
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
     const { id, email } = decoded;
 
-    const user = await User.findByPk({
+    const user = await User.findOne({
       where: { id, email },
     });
 
     if (!user) {
       return res.status(401).json({
-        errors: ['Invalid user'],
+        errors: [
+          'User not found',
+        ],
       });
     }
     req.userId = id;
