@@ -10,6 +10,8 @@ const router = new Router();
  *   post:
  *     summary: Cria um novo usuário
  *     tags: [Usuários]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -31,7 +33,7 @@ const router = new Router();
  *       500:
  *         description: Erro interno no servidor.
  */
-router.post('/', userController.store);
+router.post('/', loginRequired, userController.store);
 
 /**
  * @swagger

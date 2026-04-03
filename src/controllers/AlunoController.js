@@ -1,8 +1,16 @@
 import Aluno from '../models/Aluno';
+import Foto from '../models/Foto';
 
 class AlunoController {
   async index(req, res) {
-    const alunos = await Aluno.findAll();
+    const alunos = await Aluno.findAll({
+      attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+      order: [['id', 'DESC'], [Foto, 'id', 'DESC']],
+      include: {
+        model: Foto,
+        attributes: ['url', 'filename'],
+      },
+    });
     res.json(alunos);
   }
 
@@ -20,14 +28,28 @@ class AlunoController {
   async show(req, res) {
     try {
       const { id } = req.params;
-      const aluno = await Aluno.findByPk(id);
+
+      if (!id) {
+        return res.status(400).json({
+          errors: ['Missing id'],
+        });
+      }
+
+      const aluno = await Aluno.findByPk(id, {
+        attributes: ['id', 'nome', 'sobrenome', 'email', 'idade', 'peso', 'altura'],
+        order: [['id', 'DESC'], [Foto, 'id', 'DESC']],
+        include: {
+          model: Foto,
+          attributes: ['url', 'filename'],
+        },
+      });
+
       if (!aluno) {
         return res.status(404).json({
           errors: ['Aluno não encontrado'],
         });
       }
-      const { nome, sobrenome, email, idade, peso } = aluno;
-      return res.json({ nome, sobrenome, email, idade, peso });
+      return res.json({ aluno });
     } catch (e) {
       return res.status(400).json({
         errors: e.errors.map((err) => err.message),
