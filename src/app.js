@@ -1,6 +1,8 @@
 import dotenv from 'dotenv';
 import { resolve } from 'path';
 
+const cors = require('cors');
+
 dotenv.config();
 
 import './database';
@@ -19,6 +21,7 @@ class App {
     this.app = express();
     this.middlewares();
     this.routes();
+    this.app.use(cors());
   }
 
   middlewares() {
