@@ -1,7 +1,6 @@
 import dotenv from 'dotenv';
 import { resolve } from 'path';
-
-const cors = require('cors');
+import cors from 'cors';
 
 dotenv.config();
 
@@ -19,15 +18,15 @@ import swaggerSpec from './config/swagger';
 class App {
   constructor() {
     this.app = express();
+    this.app.use(cors());
     this.middlewares();
     this.routes();
-    this.app.use(cors());
   }
 
   middlewares() {
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
-    this.app.use(express.static(resolve(__dirname, 'uploads')));
+    this.app.use(express.static(resolve(__dirname, '..', 'uploads')));
     this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
   }
 

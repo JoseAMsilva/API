@@ -1,4 +1,6 @@
 import swaggerJsdoc from 'swagger-jsdoc';
+import path from 'path';
+import appConfig from './appConfig';
 
 const options = {
   definition: {
@@ -10,8 +12,12 @@ const options = {
     },
     servers: [
       {
-        url: 'https://app.joseamando.com.br',
-        description: 'Servidor de Desenvolvimento',
+        url: appConfig.url,
+        description: 'Servidor de Produção',
+      },
+      {
+        url: `http://localhost:${process.env.PORT || 3001}`,
+        description: 'Servidor Local',
       },
     ],
     components: {
@@ -24,7 +30,7 @@ const options = {
       },
     },
   },
-  apis: ['./src/routes/*.js'],
+  apis: [path.resolve(__dirname, '..', 'routes', '*.js')],
 };
 
 const swaggerSpec = swaggerJsdoc(options);
