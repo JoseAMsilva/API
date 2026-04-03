@@ -1,8 +1,5 @@
-import dotenv from 'dotenv';
 import { resolve } from 'path';
 import cors from 'cors';
-
-dotenv.config();
 
 import './database';
 

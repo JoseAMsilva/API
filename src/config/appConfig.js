@@ -1,3 +1,5 @@
 export default {
-  url: process.env.APP_URL,
+  get url() {
+    return process.env.APP_URL;
+  },
 };
