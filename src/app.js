@@ -1,9 +1,11 @@
 import { resolve } from 'path';
-import cors from 'cors';
 
 import './database';
 
 import express from 'express';
+import helmet from 'helmet';
+import cors from 'cors';
+
 import swaggerUi from 'swagger-ui-express';
 import homeRoutes from './routes/homeRoutes';
 import userRoutes from './routes/userRoutes';
@@ -12,15 +14,31 @@ import alunoRoutes from './routes/alunoRoutes';
 import fotoRoutes from './routes/fotoRoutes';
 import swaggerSpec from './config/swagger';
 
+const whiteList = [
+  'http://localhost:3000',
+  'https://react.joseamando.com.br',
+];
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (whiteList.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+
 class App {
   constructor() {
     this.app = express();
-    this.app.use(cors());
     this.middlewares();
     this.routes();
   }
 
   middlewares() {
+    this.app.use(cors(corsOptions));
+    this.app.use(helmet());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(express.json());
     this.app.use('/images', express.static(resolve(__dirname, '..', 'uploads', 'images')));
