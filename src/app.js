@@ -13,10 +13,14 @@ import tokenRoutes from './routes/tokenRoutes';
 import alunoRoutes from './routes/alunoRoutes';
 import fotoRoutes from './routes/fotoRoutes';
 import swaggerSpec from './config/swagger';
+import appConfig from './config/appConfig';
 
 const whiteList = [
   'http://localhost:3000',
   'https://react.joseamando.com.br',
+  'https://api.joseamando.com.br',
+  'https://joseamando.com.br',
+  appConfig.url,
 ];
 
 const corsOptions = {
