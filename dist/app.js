@@ -13,10 +13,14 @@ var _tokenRoutes = require('./routes/tokenRoutes'); var _tokenRoutes2 = _interop
 var _alunoRoutes = require('./routes/alunoRoutes'); var _alunoRoutes2 = _interopRequireDefault(_alunoRoutes);
 var _fotoRoutes = require('./routes/fotoRoutes'); var _fotoRoutes2 = _interopRequireDefault(_fotoRoutes);
 var _swagger = require('./config/swagger'); var _swagger2 = _interopRequireDefault(_swagger);
+var _appConfig = require('./config/appConfig'); var _appConfig2 = _interopRequireDefault(_appConfig);
 
 const whiteList = [
   'http://localhost:3000',
   'https://react.joseamando.com.br',
+  'https://api.joseamando.com.br',
+  'https://joseamando.com.br',
+  _appConfig2.default.url,
 ];
 
 const corsOptions = {

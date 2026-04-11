@@ -33,7 +33,7 @@ const router = new (0, _express.Router)();
  *       500:
  *         description: Erro interno no servidor.
  */
-router.post('/', _loginRequired2.default, _UserController2.default.store);
+router.post('/', _UserController2.default.store);
 
 /**
  * @swagger
