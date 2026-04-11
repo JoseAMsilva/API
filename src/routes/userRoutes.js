@@ -33,7 +33,7 @@ const router = new Router();
  *       500:
  *         description: Erro interno no servidor.
  */
-router.post('/', loginRequired, userController.store);
+router.post('/', userController.store);
 
 /**
  * @swagger
